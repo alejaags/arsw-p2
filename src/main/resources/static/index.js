@@ -1,28 +1,47 @@
 // Builds the HTML Table out of myList.
 
-var myList;
-function buildHtmlTable(selector) {
-    axios.get('/stock')
-            .then(function(result){
-                    myList = result.data;
-                    console.log(myList);
 
+function buildHtmlTable() {
+    var b = document.getElementById("bu");
+    var t = document.getElementById("time");
+console.log(t)
+    axios.get('/stock/'+t.value+'/'+b.value)
+            .then(function(result){
+                    var myList = result.data;
+                    var selector = document.getElementById("excelDataTable");
+                    console.log(myList);
+                    for(var prop in myList) {
+                        if(prop.indexOf('Time') > -1){
+                            console.log(prop,myList[prop]); 
+                            mmy = myList[prop]
+                            for(var prop2 in mmy) {
+                                var columns = addAllColumnHeaders(mmy[prop2], selector);
+                                break;
+                            }
+                            for(var prop2 in mmy) {
+                                var row$ = $('<tr/>');
+                                 row$.append($('<td/>').html(prop2));
+                                for(var prop3 in mmy[prop2]) {
+                                   var cellValue = mmy[prop2][prop3];
+                                   if (cellValue == null) cellValue = "";
+                                   row$.append($('<td/>').html(cellValue));
+                                }
+                            $(selector).append(row$);
+                            }
+                            
+                            
+                        }
+                         
+                    }
+                    
             })
             .catch(function(error){
                     console.log(error);
                     errorMessage();
             });
-  var columns = addAllColumnHeaders(myList, selector);
+  
 
-  for (var i = 0; i < myList.length; i++) {
-    var row$ = $('<tr/>');
-    for (var colIndex = 0; colIndex < columns.length; colIndex++) {
-      var cellValue = myList[i][columns[colIndex]];
-      if (cellValue == null) cellValue = "";
-      row$.append($('<td/>').html(cellValue));
-    }
-    $(selector).append(row$);
-  }
+  
 }
 
 // Adds a header row to the table and returns the set of columns.
@@ -31,14 +50,14 @@ function buildHtmlTable(selector) {
 function addAllColumnHeaders(myList, selector) {
   var columnSet = [];
   var headerTr$ = $('<tr/>');
-
-  for (var i = 0; i < myList.length; i++) {
-    var rowHash = myList[i];
-    for (var key in rowHash) {
-      if ($.inArray(key, columnSet) == -1) {
-        columnSet.push(key);
-        headerTr$.append($('<th/>').html(key));
-      }
+headerTr$.append($('<th/>').html("date"));
+  console.log(myList);
+  for(var i in myList) {
+    console.log("puta vida");
+    console.log(i)
+    if ($.inArray(i, columnSet) == -1) {
+        columnSet.push(i);
+        headerTr$.append($('<th/>').html(i));
     }
   }
   $(selector).append(headerTr$);

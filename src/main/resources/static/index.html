@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html>
     <head>
-    </head>
-    <body>
-    <form method="GET" action="">
-    Business: <input type="text" name="Business" value="fb"/><br>
-    <select name="time">
-  <option value="intraday">Intraday</option>
-  <option value="daily">Daily</option>
-  <option value="weekly">Weekly</option>
-  <option value="Monthly">Monthly</option>
-</select>
-    <input type="submit" value="Submit" onClick="buildHtmlTable(#excelDataTable);"/>
-    </form>
-<table id="excelDataTable">
-  </table>
-<script type="text/javascript" src="//code.jquery.com/jquery-2.1.0.js"></script>
+        <script type="text/javascript" src="//code.jquery.com/jquery-2.1.0.js"></script>
     <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
     <link rel="stylesheet" type="text/css" href="/main.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <link href="http://cdn-na.infragistics.com/igniteui/2018.1/latest/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
+    <link href="http://cdn-na.infragistics.com/igniteui/2018.1/latest/css/structure/infragistics.css" rel="stylesheet" />
       <link rel="stylesheet" type="text/css" href="https://rawgit.com/wenzhixin/bootstrap-table/master/src/bootstrap-table.css">
       <script type="text/javascript" src="https://rawgit.com/wenzhixin/bootstrap-table/master/src/bootstrap-table.js"></script>
       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
       <script type="text/javascript" src="/index.js"></script>
+    </head>
+    <body>
+    Business: <input id="bu" type="text" name="Business" value="fb"/><br>
+    <select id="time" name="time">
+  <option value="intraday">Intraday</option>
+  <option value="daily">Daily</option>
+  <option value="weekly">Weekly</option>
+  <option value="monthly">Monthly</option>
+    </select><br>
+    <button onclick="buildHtmlTable()">submit</button>
+
+<table id="excelDataTable" class="standard-grid">
+  </table>
+
     </body>
 
 </html>
